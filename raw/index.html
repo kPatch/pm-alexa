@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hi!</title>
+</head>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=8cc8628f4181942ea4378ceca1392edd"></script>
+<body>
+<h1>Irvin is AWESOME! - Xintian</h1>
+<h2>Emily</h2>
+
+<script type="text/javascript">
+var authenticationSuccess = function() { 
+	console.log("Successful authentication"); 
+};
+
+var authenticationFailure = function() { 
+	console.log("Failed authentication"); 
+};
+
+Trello.authorize({
+  type: 'popup',
+  name: 'Getting Started Application',
+  scope: {
+    read: 'true',
+    write: 'true' },
+  expiration: 'never',
+  success: authenticationSuccess,
+  error: authenticationFailure
+});
+
+var myList = '57e6c7b4c816a7f374bd8c12';
+var creationSuccess = function(data) {
+  console.log('Card created successfully. Data returned:' + JSON.stringify(data));
+};
+
+//Alexa should be able create development card
+var newCard = {
+  name: 'New Test Card', 
+  desc: 'This is the description of our new card.',
+  idList: myList,
+  pos: 'top'
+};
+//Trello.post('/cards/', newCard, creationSuccess);
+
+//Alexa should be able update development card
+	//Update title
+Trello.put('/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'});
+	//Update Date
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+console.log(tomorrow);
+Trello.put('/cards/57e6dd7efbe06fd411473922', {due: tomorrow.getTime()});
+	//Update Label
+var colors = ['red', 'green', 'blue', 'orange', 'yellow', 'purple'];
+var labelcolors = colors[Math.floor(Math.random() * colors.length)];
+Trello.put('/cards/57e6dd7efbe06fd411473922', {labels: labelcolors});
+	//Update member
+Trello.put('/cards/57e6dd7efbe06fd411473922', {idMembers: '57cd026f89b3e3be1fd7641c'});
+
+//Alexa should be able to get/read development card
+var success = function(){
+	console.log("Successfully get"); 
+};
+var error = function(){
+	console.log("Not able to get")
+};
+Trello.get('/cards/57e6dd7efbe06fd411473922', {name}, success, error);
+
+//Alexa should be able to move development card to different board (update development status i.e. To do, Development, Testing, Done
+var lists = ['57e6c7b4c816a7f374bd8c12', '57e6c7b8255c5b57363c545f', '57e6c7bbc20f5c811b4c0fa0', '57e6c7bf19cbc254fcc3fd08'];
+var getlist = lists[Math.floor(Math.random() * lists.length)];
+Trello.put('/cards/57e6dd7efbe06fd411473922', {idList: getlist});
+
+
+</script>
+</body>
+</html>
