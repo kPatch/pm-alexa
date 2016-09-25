@@ -68,9 +68,9 @@ exports.handler = function( event, context ) {
                 }
 
                 var newCard = {
-                	name: name,
-                	desc: desc,
-                	idList: '57e6c7b4c816a7f374bd8c12',
+                	name: 'name',
+                	desc: 'desc',
+                	idList: '57e6c7b8255c5b57363c545f',
                 	pos: 'top'
                 };
 
