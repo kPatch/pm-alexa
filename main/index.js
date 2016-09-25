@@ -26,42 +26,64 @@ exports.handler = function( event, context ) {
 	var t = new Trello("8cc8628f4181942ea4378ceca1392edd", "ffdc187503d539ff47650c12ef89db14d37bb85263c919803efe2f920456f1c7");
 
 
-    var say = "";
-    var shouldEndSession = false;
-    var sessionAttributes = {};
-    var myState = "";
-    var pop = 0;
-    var rank = 0;
+    var say 	= "";
+    var shouldEndSession 	= false;
+    var sessionAttributes 	= {};
+    var name 	= "";
+    var idList 	= "";
+    var desc 	= "";
+    var pop 	= 0;
+    var rank 	= 0;
 
     if (event.session.attributes) {
         sessionAttributes = event.session.attributes;
     }
 
     if (event.request.type === "LaunchRequest") {
-        say = "Welcome to State Pop!  Say the name of a U.S. State.";
+        say = "Welcome to Project Manager Alexa. How can I help?";
         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
 
     } else {
         var IntentName = event.request.intent.name;
 
-        if (IntentName === "StateRequestIntent") {
+        if (IntentName === "CreateCardIntent") {
 
-            if (event.request.intent.slots.usstate.value) {
+            if (event.request.intent.slots.name.value && event.request.intent.slots.idlist.value && event.request.intent.slots.desc.value) {
 
-                myState = event.request.intent.slots.usstate.value;
+                name 	= event.request.intent.slots.name.value;
+                idList 	= event.request.intent.slots.idlist.value;
+                desc 	= event.request.intent.slots.desc.value;
 
 
-                // call external rest service over https post
-                var post_data = {"usstate": myState};  
+                if(idList.toUpperCase() === 'TO DO'){
+                	idList = '57e73caa9d25aeb9ab64db24'; // To Do
+                } else if(idList.toUpperCase() === 'DEVELOPMENT') {
 
-                t.put("/1/cards/57e6dd7efbe06fd411473922",  { name: "Emily is Cranky"}, function(err, data) {
-  					if (err) throw err;
-  					console.log(data.desc);
+                } else if(idList.toUpperCase() === 'TESTING') {
 
-  					// pop = JSON.parse(returnData).desc;
-  					pop = data.desc;
+                } else if(idList.toUpperCase() === 'DONE') {
 
-                   	say = "Trello Says: " + pop;
+                } else {
+                	idList = '57e73caa9d25aeb9ab64db24'; //Development
+                }
+
+                var newCard = {
+                	name: name,
+                	desc: desc,
+                	idList: idList,
+                	pos: 'top'
+                };
+
+                t.post("/1/cards/", newCard, function(err, data) {
+                	if (err) {
+                		throw err;
+                	}
+
+                	console.log(data.name);
+
+  					pop = data.name;
+
+                   	say = "Card with name: " + pop + " was successfully created in Trello!";
 
                     // add the state to a session.attributes array
                     if (!sessionAttributes.requestList) {
@@ -71,9 +93,8 @@ exports.handler = function( event, context ) {
 
                     // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                     context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
-				});
 
-
+                });
             }
 
         } else if (IntentName === "AMAZON.StopIntent" || IntentName === "AMAZON.CancelIntent") {

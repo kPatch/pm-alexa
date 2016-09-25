@@ -1,1 +1,3 @@
-CreateCardIntent Create card with name {name} and description {desc} and in list {idlist}
+CreateCardIntent Create card with name {one|name} and description {one|desc} and in list {idlist}
+CreateCardIntent Create card with name {one two|name} and description {one two|desc} and in list {idlist}
+CreateCardIntent Create card with name {one two three|name} and description {one two three|desc} and in list {idlist}
