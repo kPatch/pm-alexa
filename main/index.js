@@ -116,18 +116,24 @@ exports.handler = function( event, context ) {
         else if (IntentName === "UpdateCardIntent") {
             if (event.request.intent.slots.name.value){
 
+            	var textName = "";
                 name = event.request.intent.slots.name.value;
                 newname = event.request.intent.slots.newname.value;
 
                 if(name.toUpperCase() === 'ONBOARDING'){
+                	textName = "Onboarding";
                     name = '57e6dd7efbe06fd411473922'; 
                 } else if(name.toUpperCase() === 'WALKTHROUGH') {
+                	textName = "Walkthrough";
                     name = '57e6c81ff38930fdaa6711bf'; 
                 } else if(name.toUpperCase() === 'GAMES') {
+                	textName = "Games";
                     name = '57e6c816a0ed0e901bbfefb1'; 
                 } else if(name.toUpperCase() === 'MESSAGING') {
+                	textName = "Messaging";
                     name = '57e6c80d5ce8b2761167adcf'; 
                 } else if(name.toUpperCase() === 'SETTINGS') {
+                	textName = "Settings";
                     name = '57e6c7c9cb0776a0ab922206'; 
                 } 
 
@@ -139,7 +145,7 @@ exports.handler = function( event, context ) {
                         console.log(err.responseBody);
                         pop = err.responseBody;
 
-                        say = "Card name has been changed to" + name + "successfully!";
+                        say = "Sorry, could not change card name to" + newname + "successfully!";
 
                         // add the state to a session.attributes array
                         if (!sessionAttributes.requestList) {
@@ -155,7 +161,7 @@ exports.handler = function( event, context ) {
 
                         pop = data.name;
 
-                        say = "Card name has been changed to" + name + "successfully!";
+                        say = "Card name has been changed to" + newname + "successfully!";
 
                         // add the state to a session.attributes array
                         if (!sessionAttributes.requestList) {
@@ -169,19 +175,27 @@ exports.handler = function( event, context ) {
                 });
             }
             else if (event.request.intent.slots.date.value){
+
+            	var textName = "";
                 date = event.request.intent.slots.date.value;
 
-                if(name.toUpperCase() === 'Onboarding'){
+                if(name.toUpperCase() === 'ONBOARDING'){
+                	textName = "Onboarding";
                     name = '57e6dd7efbe06fd411473922'; 
-                } else if(name.toUpperCase() === 'Walkthrough') {
+                } else if(name.toUpperCase() === 'WALKTHROUGH') {
+                	textName = "Walkthrough";
                     name = '57e6c81ff38930fdaa6711bf'; 
-                } else if(name.toUpperCase() === 'Games') {
+                } else if(name.toUpperCase() === 'GAMES') {
+                	textName = "Games";
                     name = '57e6c816a0ed0e901bbfefb1'; 
-                } else if(name.toUpperCase() === 'Messaging') {
+                } else if(name.toUpperCase() === 'MESSAGING') {
+                	textName = "Messaging";
                     name = '57e6c80d5ce8b2761167adcf'; 
-                } else if(name.toUpperCase() === 'Setting') {
+                } else if(name.toUpperCase() === 'SETTINGS') {
+                	textName = "Settings";
                     name = '57e6c7c9cb0776a0ab922206'; 
-                } 
+                }  
+
                 var tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
                 console.log(tomorrow);
