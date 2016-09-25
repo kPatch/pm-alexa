@@ -64,7 +64,7 @@ exports.handler = function( event, context ) {
                 } else if(idList.toUpperCase() === 'DONE') {
 
                 } else {
-                	idList = '57e73caa9d25aeb9ab64db24'; //Development
+                	idList = '57e6c7b8255c5b57363c545f'; //Development
                 }
 
                 var newCard = {
@@ -79,20 +79,23 @@ exports.handler = function( event, context ) {
                 		throw err;
                 	}
 
-                	console.log(data.name);
+                	else {
+                		console.log(data.name);
 
-  					pop = data.name;
+	  					pop = data.name;
 
-                   	say = "Card with name: " + pop + " was successfully created in Trello!";
+	                   	say = "Card with name: " + pop + " was successfully created in Trello!";
 
-                    // add the state to a session.attributes array
-                    if (!sessionAttributes.requestList) {
-                        sessionAttributes.requestList = [];
-                    }
-                    sessionAttributes.requestList.push(myState);
+	                    // add the state to a session.attributes array
+	                    if (!sessionAttributes.requestList) {
+	                        sessionAttributes.requestList = [];
+	                    }
+	                    sessionAttributes.requestList.push(myState);
 
-                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
-                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+	                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+	                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+                	}
+              
 
                 });
             }
