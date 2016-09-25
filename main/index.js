@@ -76,7 +76,20 @@ exports.handler = function( event, context ) {
 
                 t.post("/1/cards/", newCard, function(err, data) {
                 	if (err) {
-                		throw err;
+                		// throw err;
+                		console.log(err.responseBody);
+	  					pop = err.responseBody;
+
+	                   	say = "Card with name: " + pop + " was successfully created in Trello!";
+
+	                    // add the state to a session.attributes array
+	                    if (!sessionAttributes.requestList) {
+	                        sessionAttributes.requestList = [];
+	                    }
+	                    sessionAttributes.requestList.push(myState);
+
+	                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+	                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
                 	}
 
                 	else {
