@@ -30,6 +30,7 @@ exports.handler = function( event, context ) {
     var shouldEndSession 	= false;
     var sessionAttributes 	= {};
     var name 	= "";
+    var newname = "";
     var idList 	= "";
     var desc 	= "";
     var pop 	= 0;
@@ -58,17 +59,14 @@ exports.handler = function( event, context ) {
 
                 if(idList.toUpperCase() === 'TO DO'){
                 	idList = '57e6c7b4c816a7f374bd8c12'; // To Do
-                	// say += "- TO DO ";
                 } else if(idList.toUpperCase() === 'DEVELOPMENT') {
                     idList = '57e6c7b8255c5b57363c545f'; 
                 } else if(idList.toUpperCase() === 'TESTING') {
                     idList = '57e6c7bbc20f5c811b4c0fa0'; 
                 } else if(idList.toUpperCase() === 'DONE') {
                     idList = '57e6c7bf19cbc254fcc3fd08'; 
-                    // say += "- DONE ";
                 } else {
                 	idList = '57e6c7b4c816a7f374bd8c12'; 
-                	// say += "- ELSE "
                 }
 
                 var newCard = {
@@ -119,20 +117,23 @@ exports.handler = function( event, context ) {
             if (event.request.intent.slots.name.value){
 
                 name = event.request.intent.slots.name.value;
+                newname = event.request.intent.slots.newname.value;
 
-                if(name.toUpperCase() === 'Onboarding'){
+                if(name.toUpperCase() === 'ONBOARDING'){
                     name = '57e6dd7efbe06fd411473922'; 
-                } else if(name.toUpperCase() === 'Walkthrough') {
+                } else if(name.toUpperCase() === 'WALKTHROUGH') {
                     name = '57e6c81ff38930fdaa6711bf'; 
-                } else if(name.toUpperCase() === 'Games') {
+                } else if(name.toUpperCase() === 'GAMES') {
                     name = '57e6c816a0ed0e901bbfefb1'; 
-                } else if(name.toUpperCase() === 'Messaging') {
+                } else if(name.toUpperCase() === 'MESSAGING') {
                     name = '57e6c80d5ce8b2761167adcf'; 
-                } else if(name.toUpperCase() === 'Setting') {
+                } else if(name.toUpperCase() === 'SETTINGS') {
                     name = '57e6c7c9cb0776a0ab922206'; 
                 } 
 
-                t.put('/1/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'}, function(err, data) {
+                var endpoint = "/1/cards/" + name;
+
+                t.put(endpoint, {name: newname}, function(err, data) {
                     if (err) {
                         // throw err;
                         console.log(err.responseBody);
@@ -144,7 +145,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(name);
+                        sessionAttributes.requestList.push(newname);
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
@@ -160,7 +161,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(name);
+                        sessionAttributes.requestList.push(newname);
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
