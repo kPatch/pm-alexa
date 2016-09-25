@@ -70,7 +70,7 @@ exports.handler = function( event, context ) {
                 var newCard = {
                 	name: name,
                 	desc: desc,
-                	idList: idList,
+                	idList: '57e6c7b4c816a7f374bd8c12',
                 	pos: 'top'
                 };
 
@@ -91,7 +91,6 @@ exports.handler = function( event, context ) {
 	                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
 	                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
                 	}
-
                 	else {
                 		console.log(data.name);
 
