@@ -1,5 +1,1 @@
-StateRequestIntent what is the population of {usstate}
-StateRequestIntent how many people live in {usstate}
-StateRequestIntent tell me about {usstate}
-StateRequestIntent describe {usstate}
-StateRequestIntent {usstate}
+CreateCardIntent Create card with name {name} and description {desc} and in list {idlist}
