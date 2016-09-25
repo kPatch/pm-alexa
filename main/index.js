@@ -114,7 +114,7 @@ exports.handler = function( event, context ) {
 
         } 
         else if (IntentName === "UpdateCardIntent") {
-            if (event.request.intent.slots.name.value){
+            if (event.request.intent.slots.name.value && event.request.intent.slots.newname.value){
 
             	var textName = "";
                 name = event.request.intent.slots.name.value;
@@ -174,7 +174,7 @@ exports.handler = function( event, context ) {
                     }
                 });
             }
-            else if (event.request.intent.slots.date.value){
+            else if (event.request.intent.slots.name.value && event.request.intent.slots.date.value){
 
             	var textName = "";
                 date = event.request.intent.slots.date.value;
