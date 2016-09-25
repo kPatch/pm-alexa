@@ -1,0 +1,35 @@
+{
+  "intents": [
+    {
+      "intent": "StateRequestIntent",
+      "slots":[
+        {
+          "name":"usstate",
+          "type":"AMAZON.US_STATE"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.StartOverIntent"
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+
+  ]
+}
