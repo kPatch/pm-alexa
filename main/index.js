@@ -48,6 +48,8 @@ exports.handler = function( event, context ) {
 
         if (IntentName === "CreateCardIntent") {
 
+        	say = "CreateCardIntent";
+
             if (event.request.intent.slots.name.value && event.request.intent.slots.idlist.value && event.request.intent.slots.desc.value) {
 
                 name 	= event.request.intent.slots.name.value;
@@ -57,22 +59,23 @@ exports.handler = function( event, context ) {
 
                 if(idList.toUpperCase() === 'TO DO'){
                 	idList = '57e6c7b4c816a7f374bd8c12'; // To Do
+                	say += "- TO DO ";
                 } else if(idList.toUpperCase() === 'DEVELOPMENT') {
                     idList = '57e6c7b8255c5b57363c545f'; 
                 } else if(idList.toUpperCase() === 'TESTING') {
                     idList = '57e6c7bbc20f5c811b4c0fa0'; 
                 } else if(idList.toUpperCase() === 'DONE') {
                     idList = '57e6c7bf19cbc254fcc3fd08'; 
-                } 
+                    say += "- DONE ";
+                } else {
+                	idList = '57e6c7b8255c5b57363c545f'; 
+                	say += "- ELSE "
+                }
 
                 var newCard = {
                 	name: 'name',
                 	desc: 'desc',
-<<<<<<< HEAD
-                	idList: '57e6c7b8255c5b57363c545f',
-=======
-                	idList: 'idList',
->>>>>>> 44708d83a3f6babcb873e1e21ce38c328f4ecde3
+                	idList: '57e6c7b4c816a7f374bd8c12',
                 	pos: 'top'
                 };
 
@@ -82,13 +85,13 @@ exports.handler = function( event, context ) {
                 		console.log(err.responseBody);
 	  					pop = err.responseBody;
 
-	                   	say = "Error " + name + "with description" + desc + " was successfully created in Trello!";
+	                   	say += "Error " + name + " with description" + desc + " with idList " + idList + "was successfully created in Trello!";
 
 	                    // add the state to a session.attributes array
-	                    //if (!sessionAttributes.requestList) {
-	                        //sessionAttributes.requestList = [];
-	                    //}
-	                    //sessionAttributes.requestList.push(myState);
+	                    if (!sessionAttributes.requestList) {
+	                        sessionAttributes.requestList = [];
+	                    }
+	                    sessionAttributes.requestList.push(name);
 
 	                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
 	                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
@@ -101,10 +104,10 @@ exports.handler = function( event, context ) {
 	                   	say = "Card " + name + "with description" + desc + " was successfully created in Trello!";
 
 	                    // add the state to a session.attributes array
-	                    //if (!sessionAttributes.requestList) {
-	                        //sessionAttributes.requestList = [];
-	                    //}
-	                    //sessionAttributes.requestList.push(name);
+	                    if (!sessionAttributes.requestList) {
+	                        sessionAttributes.requestList = [];
+	                    }
+	                    sessionAttributes.requestList.push(name);
 
 	                    // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
 	                    context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
