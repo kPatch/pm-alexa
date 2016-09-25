@@ -29,6 +29,7 @@ exports.handler = function( event, context ) {
     var say 	= "";
     var shouldEndSession 	= false;
     var sessionAttributes 	= {};
+    var date 	= "";
     var name 	= "";
     var newname = "";
     var idList 	= "";
@@ -209,7 +210,7 @@ exports.handler = function( event, context ) {
                         console.log(err.responseBody);
                         pop = err.responseBody;
 
-                        say = "Card due date has been changed to" + tomorrow + "successfully!";
+                        say = "Sorry, card's due date could not be changed";
 
                         // add the state to a session.attributes array
                         if (!sessionAttributes.requestList) {
@@ -225,7 +226,7 @@ exports.handler = function( event, context ) {
 
                         pop = data.name;
 
-                        say = "Card due date has been changed to" + tomorrow + "successfully!";
+                        say = "Card due date has been changed to tomorrow successfully!";
 
                         // add the state to a session.attributes array
                         if (!sessionAttributes.requestList) {
