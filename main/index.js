@@ -56,7 +56,7 @@ exports.handler = function( event, context ) {
 
 
                 if(idList.toUpperCase() === 'TO DO'){
-                	idList = '57e73caa9d25aeb9ab64db24'; // To Do
+                	idList = '57e6c7b4c816a7f374bd8c12'; // To Do
                 } else if(idList.toUpperCase() === 'DEVELOPMENT') {
 
                 } else if(idList.toUpperCase() === 'TESTING') {
