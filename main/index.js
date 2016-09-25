@@ -204,7 +204,7 @@ exports.handler = function( event, context ) {
 
                 var endpoint = "/1/cards/" + name;
 
-                t.put("/1/cards/57e6c7c9cb0776a0ab922206", {due: tomorrow.getTime()}, function(err, data) {
+                t.put(endpoint, {due: tomorrow.getTime()}, function(err, data) {
                     if (err) {
                         // throw err;
                         console.log(err.responseBody);
