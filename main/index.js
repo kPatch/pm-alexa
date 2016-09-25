@@ -216,7 +216,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(textName);
+                        sessionAttributes.requestList.push("test");
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
@@ -232,7 +232,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(textName);
+                        sessionAttributes.requestList.push("test");
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
