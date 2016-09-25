@@ -200,7 +200,9 @@ exports.handler = function( event, context ) {
                 tomorrow.setDate(tomorrow.getDate() + 1);
                 console.log(tomorrow);
 
-                t.put('/1/cards/57e6dd7efbe06fd411473922', {due: tomorrow.getTime()}, function(err, data) {
+                var endpoint = "/1/cards/" + name;
+
+                t.put(endpoint, {due: tomorrow.getTime()}, function(err, data) {
                     if (err) {
                         // throw err;
                         console.log(err.responseBody);
@@ -212,7 +214,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(name);
+                        sessionAttributes.requestList.push(textName);
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
@@ -228,7 +230,7 @@ exports.handler = function( event, context ) {
                         if (!sessionAttributes.requestList) {
                             sessionAttributes.requestList = [];
                         }
-                        sessionAttributes.requestList.push(name);
+                        sessionAttributes.requestList.push(textName);
 
                         // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
                         context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });

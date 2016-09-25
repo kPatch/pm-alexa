@@ -58,13 +58,52 @@ var newCard = {
 // });
 
 
-t.put('/1/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'}, function(err, data) {
+// t.put('/1/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'}, function(err, data) {
+//     if (err) {
+//         // throw err;
+//         console.log("ERROR: " + err.responseBody);
+//         pop = err.responseBody;
+
+//         // say = "Card name has been changed to" + name + "successfully!";
+
+//         // // add the state to a session.attributes array
+//         // if (!sessionAttributes.requestList) {
+//         //     sessionAttributes.requestList = [];
+//         // }
+//         // sessionAttributes.requestList.push(name);
+
+//         // // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+//         // context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+//     }
+//     else {
+//         console.log(data.name);
+
+//         // pop = data.name;
+
+//         // say = "Card name has been changed to" + name + "successfully!";
+
+//         // // add the state to a session.attributes array
+//         // if (!sessionAttributes.requestList) {
+//         //     sessionAttributes.requestList = [];
+//         // }
+//         // sessionAttributes.requestList.push(name);
+
+//         // // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+//         // context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+//     }
+// });
+
+
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+t.put('/1/cards/57e6c7c9cb0776a0ab922206', {due: tomorrow.getTime()}, function(err, data) {
     if (err) {
         // throw err;
-        console.log("ERROR: " + err.responseBody);
-        pop = err.responseBody;
+        console.log(err.responseBody);
+        // pop = err.responseBody;
 
-        // say = "Card name has been changed to" + name + "successfully!";
+        // say = "Card due date has been changed to" + tomorrow + "successfully!";
 
         // // add the state to a session.attributes array
         // if (!sessionAttributes.requestList) {
@@ -80,7 +119,7 @@ t.put('/1/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'}, function
 
         // pop = data.name;
 
-        // say = "Card name has been changed to" + name + "successfully!";
+        // say = "Card due date has been changed to" + tomorrow + "successfully!";
 
         // // add the state to a session.attributes array
         // if (!sessionAttributes.requestList) {
