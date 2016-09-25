@@ -114,7 +114,115 @@ exports.handler = function( event, context ) {
                 });
             }
 
-        } else if (IntentName === "AMAZON.StopIntent" || IntentName === "AMAZON.CancelIntent") {
+        } 
+        else if (IntentName === "UpdateCardIntent") {
+            if (event.request.intent.slots.name.value){
+
+                name = event.request.intent.slots.name.value;
+
+                if(name.toUpperCase() === 'Onboarding'){
+                    name = '57e6dd7efbe06fd411473922'; 
+                } else if(name.toUpperCase() === 'Walkthrough') {
+                    name = '57e6c81ff38930fdaa6711bf'; 
+                } else if(name.toUpperCase() === 'Games') {
+                    name = '57e6c816a0ed0e901bbfefb1'; 
+                } else if(name.toUpperCase() === 'Messaging') {
+                    name = '57e6c80d5ce8b2761167adcf'; 
+                } else if(name.toUpperCase() === 'Setting') {
+                    name = '57e6c7c9cb0776a0ab922206'; 
+                } 
+
+                t.put('/1/cards/57e6dd7efbe06fd411473922', {name: 'Emily is learning'}, function(err, data) {
+                    if (err) {
+                        // throw err;
+                        console.log(err.responseBody);
+                        pop = err.responseBody;
+
+                        say = "Card name has been changed to" + name + "successfully!";
+
+                        // add the state to a session.attributes array
+                        if (!sessionAttributes.requestList) {
+                            sessionAttributes.requestList = [];
+                        }
+                        sessionAttributes.requestList.push(name);
+
+                        // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+                        context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+                    }
+                    else {
+                        console.log(data.name);
+
+                        pop = data.name;
+
+                        say = "Card name has been changed to" + name + "successfully!";
+
+                        // add the state to a session.attributes array
+                        if (!sessionAttributes.requestList) {
+                            sessionAttributes.requestList = [];
+                        }
+                        sessionAttributes.requestList.push(name);
+
+                        // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+                        context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+                    }
+                });
+            }
+            else if (event.request.intent.slots.date.value){
+                date = event.request.intent.slots.date.value;
+
+                if(name.toUpperCase() === 'Onboarding'){
+                    name = '57e6dd7efbe06fd411473922'; 
+                } else if(name.toUpperCase() === 'Walkthrough') {
+                    name = '57e6c81ff38930fdaa6711bf'; 
+                } else if(name.toUpperCase() === 'Games') {
+                    name = '57e6c816a0ed0e901bbfefb1'; 
+                } else if(name.toUpperCase() === 'Messaging') {
+                    name = '57e6c80d5ce8b2761167adcf'; 
+                } else if(name.toUpperCase() === 'Setting') {
+                    name = '57e6c7c9cb0776a0ab922206'; 
+                } 
+                var tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                console.log(tomorrow);
+
+                t.put('/1/cards/57e6dd7efbe06fd411473922', {due: tomorrow.getTime()}, function(err, data) {
+                    if (err) {
+                        // throw err;
+                        console.log(err.responseBody);
+                        pop = err.responseBody;
+
+                        say = "Card due date has been changed to" + tomorrow + "successfully!";
+
+                        // add the state to a session.attributes array
+                        if (!sessionAttributes.requestList) {
+                            sessionAttributes.requestList = [];
+                        }
+                        sessionAttributes.requestList.push(name);
+
+                        // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+                        context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+                    }
+                    else {
+                        console.log(data.name);
+
+                        pop = data.name;
+
+                        say = "Card due date has been changed to" + tomorrow + "successfully!";
+
+                        // add the state to a session.attributes array
+                        if (!sessionAttributes.requestList) {
+                            sessionAttributes.requestList = [];
+                        }
+                        sessionAttributes.requestList.push(name);
+
+                        // This line concludes the lambda call.  Move this line to within any asynchronous callbacks that return and use data.
+                        context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
+                    }
+                });
+            }
+
+        }
+         else if (IntentName === "AMAZON.StopIntent" || IntentName === "AMAZON.CancelIntent") {
             say = "You asked for " + sessionAttributes.requestList.toString() + ". Thanks for playing!";
             shouldEndSession = true;
             context.succeed({sessionAttributes: sessionAttributes, response: buildSpeechletResponse(say, shouldEndSession) });
