@@ -177,6 +177,7 @@ exports.handler = function( event, context ) {
             else if (event.request.intent.slots.name.value && event.request.intent.slots.date.value){
 
             	var textName = "";
+            	name = event.request.intent.slots.name.value;
                 date = event.request.intent.slots.date.value;
 
                 if(name.toUpperCase() === 'ONBOARDING'){
